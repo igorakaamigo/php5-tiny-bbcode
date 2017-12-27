@@ -1,0 +1,32 @@
+{
+  "name": "igorakaamigo/php5-tiny-bbcode",
+  "description": "A tiny BBCode implementation for old PHP5.",
+  "keywords": [
+    "php5",
+    "library",
+    "utils",
+    "bbcode"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Igor M Osipov",
+      "email": "osipov.igor.amigo@gmail.com"
+    }
+  ],
+  "type": "library",
+  "require": {
+    "php": ">=5.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "5.4.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Igorakaamigo\\Utils\\": "src/"
+    }
+  },
+  "scripts": {
+    "test": "phpunit"
+  }
+}
