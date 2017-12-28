@@ -34,7 +34,7 @@ namespace Igorakaamigo\Utils;
  */
 class BBCode
 {
-    private static $_patterns = array(
+    private static $_patterns = [
         '#\[b\](.*?)\[/b\]#si'                            => '<strong>\1</strong>',
         '#\[i\](.*?)\[/i\]#si'                            => '<em>\1</em>',
         '#\[u\](.*?)\[/u\]#si'                            => '<span style="text-decoration: underline;">\1</span>',
@@ -54,7 +54,7 @@ class BBCode
         '#\[tr\](.*?)\[/tr\]#si'                          => '<tr>\1</tr>',
         '#\[td\](.*?)\[/td\]#si'                          => '<td>\1</td>',
         '#(^\s+)|(\s+$)#si'                               => '',
-    );
+    ];
 
     /**
      * BBCode translation
