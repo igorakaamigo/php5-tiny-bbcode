@@ -2,6 +2,11 @@
 
 This library includes a lightweight implementation of a BBCode subset to HTML translator.
 
+[![License](https://img.shields.io/github/license/igorakaamigo/php5-tiny-bbcode.svg)](https://github.com/igorakaamigo/php5-tiny-bbcode/blob/master/LICENSE)
+[![Packagist Version](https://img.shields.io/packagist/v/igorakaamigo/php5-tiny-bbcode.svg)](https://packagist.org/packages/igorakaamigo/php5-tiny-bbcode)
+[![Minimal PHP Version](https://img.shields.io/packagist/php-v/igorakaamigo/php5-tiny-bbcode.svg)](http://php.net/downloads.php)
+[![Build Status](https://img.shields.io/travis/igorakaamigo/php5-tiny-bbcode/master.svg)](https://travis-ci.org/igorakaamigo/php5-tiny-bbcode)
+
 ## Features
 
 * It's tiny, yep.
