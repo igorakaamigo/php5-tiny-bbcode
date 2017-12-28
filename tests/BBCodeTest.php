@@ -23,10 +23,9 @@
  * SOFTWARE.
  */
 
-use PHPUnit\Framework\TestCase;
 use \Igorakaamigo\Utils\BBCode;
 
-final class BBCodeTest extends TestCase
+final class BBCodeTest extends PHPUnit_Framework_TestCase
 {
     public function testItShouldReplaceHtmlEntities()
     {
