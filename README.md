@@ -28,6 +28,16 @@ php composer.phar require "igorakaamigo/php5-tiny-bbcode"
 use \Igorakaamigo\Utils\BBCode;
 
 echo BBCode::convert('[b]A bold string[/b]');
+// Outputs: <strong>A bold string</strong>
+
+echo BBCode::convert('<span>A text</span>');
+// Outputs: &lt;span&gt;A text&lt;/span&gt;
+
+echo BBCode::convert('[i]Hi&nbsp;there![/i]');
+// Outputs: <em>Hi&amp;nbsp;there!</em>
+
+echo BBCode::convert('[i]Hi&nbsp;there<br>!!![/i]', ['&nbsp;', '<br>']);
+// Outputs: <em>Hi&nbsp;there<br>!!!</em>
 ```
 
 ### Supported BBCodes

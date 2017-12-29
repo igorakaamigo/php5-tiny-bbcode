@@ -222,4 +222,17 @@ final class BBCodeTest extends PHPUnit_Framework_TestCase
             return "<span style=\"color: #AABBCC;\">$v</span>";
         });
     }
+
+    public function testItShouldDealWithIgnoreHtmlParam() {
+        $expected = "A leading string &nbsp;&quot;<br><br/><br /> A trailing string";
+        $source = 'A leading string &nbsp;&quot;<br><br/><br /> A trailing string';
+        $ignoreHtml = array(
+            '&nbsp;',
+            '&quot;',
+            '<br>',
+            '<br/>',
+            '<br />',
+        );
+        $this->assertEquals($expected, BBCode::convert($source, $ignoreHtml));
+    }
 }

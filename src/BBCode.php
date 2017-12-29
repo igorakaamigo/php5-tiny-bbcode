@@ -60,14 +60,22 @@ class BBCode
      * BBCode translation
      *
      * @param string $sourceString A string containing BBCode tags
+     * @param array $ignoreHtml do not remove these html tags / entities, default value is []
      * @return string HTML string
      */
-    static function convert($sourceString)
+    static function convert($sourceString, $ignoreHtml = [])
     {
-        return preg_replace(
-            array_keys(self::$_patterns),
-            array_values(self::$_patterns),
-            htmlentities($sourceString)
-        );
+        $processedIgnoreHtml = array_map(function ($e) {
+            return htmlentities($e);
+        }, $ignoreHtml);
+
+        $result = preg_replace(array_keys(self::$_patterns), array_values(self::$_patterns),
+            htmlentities($sourceString));
+
+        if (count($ignoreHtml) > 0) {
+            $result = strtr($result, array_combine($processedIgnoreHtml, $ignoreHtml));
+        }
+
+        return $result;
     }
 }
