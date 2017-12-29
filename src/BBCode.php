@@ -63,14 +63,17 @@ class BBCode
      * @param array $ignoreHtml do not remove these html tags / entities, default value is []
      * @return string HTML string
      */
-    static function convert($sourceString, $ignoreHtml = [])
+    static function convert($sourceString, $ignoreHtml = [], $charset = 'UTF-8')
     {
-        $processedIgnoreHtml = array_map(function ($e) {
-            return htmlentities($e);
+        $processedIgnoreHtml = array_map(function ($e) use ($charset) {
+            return htmlspecialchars($e, ENT_COMPAT, $charset);
         }, $ignoreHtml);
 
-        $result = preg_replace(array_keys(self::$_patterns), array_values(self::$_patterns),
-            htmlentities($sourceString));
+        $result = preg_replace(
+            array_keys(self::$_patterns),
+            array_values(self::$_patterns),
+            htmlspecialchars($sourceString, ENT_COMPAT, $charset)
+        );
 
         if (count($ignoreHtml) > 0) {
             $result = strtr($result, array_combine($processedIgnoreHtml, $ignoreHtml));
