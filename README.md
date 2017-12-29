@@ -38,6 +38,15 @@ echo BBCode::convert('[i]Hi&nbsp;there![/i]');
 
 echo BBCode::convert('[i]Hi&nbsp;there<br>!!![/i]', ['&nbsp;', '<br>']);
 // Outputs: <em>Hi&nbsp;there<br>!!!</em>
+
+/**
+ * Sometimes, when the PHP is not properly configured,
+ * as a result of a htmlspecialchars() call, convert() can
+ * break non-ansi symbols. For those cases you can
+ * explicitly specify the correct charset.
+ */
+echo BBCode::convert('[b]Windows-1251 string: Кириллица[/b]', [], 'cp1251');
+// Outputs: <strong>Windows-1251 string: Кириллица</strong>
 ```
 
 ### Supported BBCodes
