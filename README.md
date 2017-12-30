@@ -46,16 +46,20 @@ echo BBCode::convert('[i]Hi&nbsp;there<br>!!![/i]', ['&nbsp;', '<br>']);
 * [i]Italic string[/i]
 * [u]Underline string[/u]
 * [s]Strikethrough string[/s]
+* [email]xxx@yyy.com[/email]
 * [url]http://www.domain.tld[/url]
-* [url=http://www.domain.tld]Another way to render a link[/url]
+* [url="http://www.domain.tld"]Another way to render a link[/url] (quotes inside url tag are not necessary)
 * [img]http://www.domain.tld/upload/image.png[/img]
 * [quote]A quotation[/quote]
+* [quote="Quote author"]A quotation[/quote] (quotes inside quote tag are not necessary)
 * [code]A program code sample[/code]
-* [size=12]A text written using a 12px-sized font[/size]
-* [size="10pt"]A text written using a 10pt-sized font[/size]
-* [color="#33FF33"]A green text line[/color]
-* [ul], [ol], [li] – list-related tags
+* [size="12"]A text written using a 12px-sized font[/size] (quotes inside size tag are not necessary)
+* [size="10pt"]A text written using a 10pt-sized font[/size] (quotes inside size tag are not necessary)
+* [color="#33FF33"]A green text line[/color] (quotes inside color tag are not necessary)
 * [table], [tr], [td] – table-related tags
+* [ul], [ol], [li], [*], [list], [list=1|a|A|i|I], [list="1|a|A|i|I"] – list-related tags
+
+[attachment] tag is not supported yet.
 
 ## Contributing
 

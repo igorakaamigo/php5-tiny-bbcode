@@ -9,9 +9,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - CHANGELOG.md
 - Travis CI support file
 - HHVM support
+- New list synthax added ([list] / [*]) (according to documentation)
+- [email] tag added
 
 ### Changed
 - BBCode::convert() - added $ignoreHtml param with default value of []
+
+### Fixed
+- Quotes are made unnecessary @ [color] tag
+- Quotes are made unnecessary @ [url] tag
+- Quotes are made unnecessary @ [size] tag
+- Quotes are made unnecessary @ [quote] tag
+- [li][/li] content is trimming now
 
 ### Removed
 - Removed binding to htmlspecialchars() function
@@ -30,7 +39,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - [code]A program code sample[/code]
   - [size=12]A text written using a 12px-sized font[/size]
   - [size="10pt"]A text written using a 10pt-sized font[/size]
-  - [color="#33FF33"]A green text line[/color]
+  - [color="#33FF33"]A green text line[/color], [color=#33FF33]A green text line[/color]
   - [ul], [ol], [li] – list-related tags
   - [table], [tr], [td] – table-related tags
 - MIT LICENSE file

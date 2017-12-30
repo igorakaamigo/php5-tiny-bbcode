@@ -69,24 +69,93 @@ final class BBCodeTest extends PHPUnit_Framework_TestCase
         });
     }
 
-    private function _itShouldBehaveLikeASimpleWrapperTag($tagName, $tagBuilder)
-    {
-        $expected = "A leading part {$tagBuilder('A tag value')} A trailing part";
-        $source = "A leading part [$tagName]A tag value[/$tagName] A trailing part";
-        $this->assertEquals($expected, BBCode::convert($source), 'It should render a correct markup');
+    public function testItShouldDealWithAnAlternateListDefinitionUl() {
+        $this->_itShouldBehaveLikeAList(
+            '[list]',
+            '[/list]',
+            '<ul>',
+            '</ul>'
+        );
+    }
 
-        $uTag = strtoupper($tagName);
-        $source = "A leading part [$uTag]A tag value[/$uTag] A trailing part";
-        $this->assertEquals($expected, BBCode::convert($source), 'Tag names should be case-insensitive');
+    public function testItShouldDealWithAnAlternateListDefinitionOlType1() {
+        $this->_itShouldBehaveLikeAList(
+            '[list=1]',
+            '[/list]',
+            '<ol type="1">',
+            '</ol>'
+        );
 
-        $expected = "A leading part {$tagBuilder('
-      A tag value
-    ')} A trailing part";
-        $source = "A leading part [$tagName]
-      A tag value
-    [/$tagName] A trailing part";
-        $this->assertEquals($expected, BBCode::convert($source),
-            'Tag content should be processed as a multiline string');
+        $this->_itShouldBehaveLikeAList(
+            '[list="1"]',
+            '[/list]',
+            '<ol type="1">',
+            '</ol>'
+        );
+    }
+
+    public function testItShouldDealWithAnAlternateListDefinitionOlTypeSmallA() {
+        $this->_itShouldBehaveLikeAList(
+            '[list=a]',
+            '[/list]',
+            '<ol type="a">',
+            '</ol>'
+        );
+
+        $this->_itShouldBehaveLikeAList(
+            '[list="a"]',
+            '[/list]',
+            '<ol type="a">',
+            '</ol>'
+        );
+    }
+
+    public function testItShouldDealWithAnAlternateListDefinitionOlTypeCapitalA() {
+        $this->_itShouldBehaveLikeAList(
+            '[list=A]',
+            '[/list]',
+            '<ol type="A">',
+            '</ol>'
+        );
+
+        $this->_itShouldBehaveLikeAList(
+            '[list="A"]',
+            '[/list]',
+            '<ol type="A">',
+            '</ol>'
+        );
+    }
+
+    public function testItShouldDealWithAnAlternateListDefinitionOlTypeSmallI() {
+        $this->_itShouldBehaveLikeAList(
+            '[list=i]',
+            '[/list]',
+            '<ol type="i">',
+            '</ol>'
+        );
+
+        $this->_itShouldBehaveLikeAList(
+            '[list="i"]',
+            '[/list]',
+            '<ol type="i">',
+            '</ol>'
+        );
+    }
+
+    public function testItShouldDealWithAnAlternateListDefinitionOlTypeCapitalI() {
+        $this->_itShouldBehaveLikeAList(
+            '[list=I]',
+            '[/list]',
+            '<ol type="I">',
+            '</ol>'
+        );
+
+        $this->_itShouldBehaveLikeAList(
+            '[list="I"]',
+            '[/list]',
+            '<ol type="I">',
+            '</ol>'
+        );
     }
 
     public function testItShouldDealWithTagI()
@@ -127,7 +196,7 @@ final class BBCodeTest extends PHPUnit_Framework_TestCase
     public function testItShouldDealWithTagLi()
     {
         $this->_itShouldBehaveLikeASimpleWrapperTag('li', function ($v) {
-            return "<li>$v</li>";
+            return '<li>' . preg_replace('#(^\s+)|(\s+$)#', '', $v) . '</li>';
         });
     }
 
@@ -160,6 +229,105 @@ final class BBCodeTest extends PHPUnit_Framework_TestCase
         $this->_itShouldBehaveLikeAnAttributedWrapperTag('url', 'http://www.google.com/', function ($v) {
             return "<a href=\"http://www.google.com/\">$v</a>";
         });
+        $this->_itShouldBehaveLikeAnAttributedWrapperTag('url', '"http://www.google.com/"', function ($v) {
+            return "<a href=\"http://www.google.com/\">$v</a>";
+        });
+    }
+
+    public function testItShouldDealWithTagEmail()
+    {
+        $this->_itShouldBehaveLikeASimpleWrapperTag('email', function ($v) {
+            return "<a href=\"mailto:$v\">$v</a>";
+        });
+    }
+
+    public function testItShouldDealWithTagImg()
+    {
+        $this->_itShouldBehaveLikeASimpleWrapperTag('img', function ($v) {
+            return "<img src=\"$v\" alt=\"\" />";
+        });
+    }
+
+    public function testItShouldDealWithTagQuote()
+    {
+        $this->_itShouldBehaveLikeASimpleWrapperTag('quote', function ($v) {
+            return "<blockquote>$v</blockquote>";
+        });
+        $this->_itShouldBehaveLikeAnAttributedWrapperTag('quote', '"Quote author"', function ($v) {
+            return "<blockquote>$v</blockquote>";
+        });
+        $this->_itShouldBehaveLikeAnAttributedWrapperTag('quote', 'Quote author', function ($v) {
+            return "<blockquote>$v</blockquote>";
+        });
+    }
+
+    public function testItShouldDealWithTagCode()
+    {
+        $this->_itShouldBehaveLikeASimpleWrapperTag('code', function ($v) {
+            return "<code style=\"white-space: pre;\">$v</code>";
+        });
+    }
+
+    public function testItShouldDealWithTagSize()
+    {
+        $this->_itShouldBehaveLikeAnAttributedWrapperTag('size', '"20"', function ($v) {
+            return "<span style=\"font-size: 20px;\">$v</span>";
+        });
+        $this->_itShouldBehaveLikeAnAttributedWrapperTag('size', '20', function ($v) {
+            return "<span style=\"font-size: 20px;\">$v</span>";
+        });
+        $this->_itShouldBehaveLikeAnAttributedWrapperTag('size', '"20em"', function ($v) {
+            return "<span style=\"font-size: 20em;\">$v</span>";
+        });
+        $this->_itShouldBehaveLikeAnAttributedWrapperTag('size', '20em', function ($v) {
+            return "<span style=\"font-size: 20em;\">$v</span>";
+        });
+    }
+
+    public function testItShouldDealWithTagColor()
+    {
+        $this->_itShouldBehaveLikeAnAttributedWrapperTag('color', '"#AABBCC"', function ($v) {
+            return "<span style=\"color: #AABBCC;\">$v</span>";
+        });
+
+        $this->_itShouldBehaveLikeAnAttributedWrapperTag('color', '#AABBCC', function ($v) {
+            return "<span style=\"color: #AABBCC;\">$v</span>";
+        });
+    }
+
+    public function testItShouldDealWithIgnoreHtmlParam() {
+        $expected = "A leading string &nbsp;&quot;<br><br/><br /> A trailing string";
+        $source = 'A leading string &nbsp;&quot;<br><br/><br /> A trailing string';
+        $ignoreHtml = array(
+            '&nbsp;',
+            '&quot;',
+            '<br>',
+            '<br/>',
+            '<br />',
+        );
+        $this->assertEquals($expected, BBCode::convert($source, $ignoreHtml));
+    }
+
+    public function testItShouldNotBreakSingleByteCharsetString() {
+        $expected = iconv('utf-8', 'cp1251', 'Строка&amp;nbsp;со <спецсимволами>');
+        $source = iconv('utf-8', 'cp1251', 'Строка&nbsp;со <спецсимволами>');
+        $this->assertEquals($expected, BBCode::convert($source, [iconv('utf-8', 'cp1251', '<спецсимволами>')]));
+    }
+
+    private function _itShouldBehaveLikeAList($inA, $inB, $outA, $outB) {
+        $expected =  $outA . '
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        ' . $outB;
+        $source = "
+        {$inA}
+        [*]Item 1
+        [*] Item 2 \t
+        [*]  Item 3  \t
+        {$inB}
+        ";
+        $this->assertEquals($expected, BBCode::convert($source));
     }
 
     private function _itShouldBehaveLikeAnAttributedWrapperTag($tagName, $attributeValue, $tagBuilder)
@@ -182,63 +350,23 @@ final class BBCodeTest extends PHPUnit_Framework_TestCase
             'Tag content should be processed as a multiline string');
     }
 
-    public function testItShouldDealWithTagImg()
+    private function _itShouldBehaveLikeASimpleWrapperTag($tagName, $tagBuilder)
     {
-        $this->_itShouldBehaveLikeASimpleWrapperTag('img', function ($v) {
-            return "<img src=\"$v\" alt=\"\" />";
-        });
-    }
+        $expected = "A leading part {$tagBuilder('A tag value')} A trailing part";
+        $source = "A leading part [$tagName]A tag value[/$tagName] A trailing part";
+        $this->assertEquals($expected, BBCode::convert($source), 'It should render a correct markup');
 
-    public function testItShouldDealWithTagQuote()
-    {
-        $this->_itShouldBehaveLikeASimpleWrapperTag('quote', function ($v) {
-            return "<blockquote>$v</blockquote>";
-        });
-        $this->_itShouldBehaveLikeAnAttributedWrapperTag('quote', '"Quote author"', function ($v) {
-            return "<blockquote>$v</blockquote>";
-        });
-    }
+        $uTag = strtoupper($tagName);
+        $source = "A leading part [$uTag]A tag value[/$uTag] A trailing part";
+        $this->assertEquals($expected, BBCode::convert($source), 'Tag names should be case-insensitive');
 
-    public function testItShouldDealWithTagCode()
-    {
-        $this->_itShouldBehaveLikeASimpleWrapperTag('code', function ($v) {
-            return "<code style=\"white-space: pre;\">$v</code>";
-        });
-    }
-
-    public function testItShouldDealWithTagSize()
-    {
-        $this->_itShouldBehaveLikeAnAttributedWrapperTag('size', '20', function ($v) {
-            return "<span style=\"font-size: 20px;\">$v</span>";
-        });
-        $this->_itShouldBehaveLikeAnAttributedWrapperTag('size', '"20em"', function ($v) {
-            return "<span style=\"font-size: 20em;\">$v</span>";
-        });
-    }
-
-    public function testItShouldDealWithTagColor()
-    {
-        $this->_itShouldBehaveLikeAnAttributedWrapperTag('color', '"#AABBCC"', function ($v) {
-            return "<span style=\"color: #AABBCC;\">$v</span>";
-        });
-    }
-
-    public function testItShouldDealWithIgnoreHtmlParam() {
-        $expected = "A leading string &nbsp;&quot;<br><br/><br /> A trailing string";
-        $source = 'A leading string &nbsp;&quot;<br><br/><br /> A trailing string';
-        $ignoreHtml = array(
-            '&nbsp;',
-            '&quot;',
-            '<br>',
-            '<br/>',
-            '<br />',
-        );
-        $this->assertEquals($expected, BBCode::convert($source, $ignoreHtml));
-    }
-
-    public function testItShouldNotBreakSingleByteCharsetString() {
-        $expected = iconv('utf-8', 'cp1251', 'Строка&amp;nbsp;со <спецсимволами>');
-        $source = iconv('utf-8', 'cp1251', 'Строка&nbsp;со <спецсимволами>');
-        $this->assertEquals($expected, BBCode::convert($source, [iconv('utf-8', 'cp1251', '<спецсимволами>')]));
+        $expected = "A leading part {$tagBuilder('
+      A tag value
+    ')} A trailing part";
+        $source = "A leading part [$tagName]
+      A tag value
+    [/$tagName] A trailing part";
+        $this->assertEquals($expected, BBCode::convert($source),
+            'Tag content should be processed as a multiline string');
     }
 }
