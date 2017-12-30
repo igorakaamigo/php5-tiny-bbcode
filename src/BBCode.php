@@ -34,6 +34,14 @@ namespace Igorakaamigo\Utils;
  */
 class BBCode
 {
+    private static $_specialchars = [
+        '#&#'  => '&amp;',
+        '#"#'  => '&quot;',
+        '#\'#' => '&#039;',
+        '#<#'  => '&lt;',
+        '#>#'  => '&gt;',
+    ];
+
     private static $_patterns = [
         '#\[b\](.*?)\[/b\]#si'                            => '<strong>\1</strong>',
         '#\[i\](.*?)\[/i\]#si'                            => '<em>\1</em>',
@@ -63,22 +71,34 @@ class BBCode
      * @param array $ignoreHtml do not remove these html tags / entities, default value is []
      * @return string HTML string
      */
-    static function convert($sourceString, $ignoreHtml = [], $charset = 'UTF-8')
+    static function convert($sourceString, $ignoreHtml = [])
     {
-        $processedIgnoreHtml = array_map(function ($e) use ($charset) {
-            return htmlspecialchars($e, ENT_COMPAT, $charset);
+        $processedIgnoreHtml = array_map(function ($e) {
+            return self::_htmlspecialchars($e);
         }, $ignoreHtml);
 
         $result = preg_replace(
             array_keys(self::$_patterns),
             array_values(self::$_patterns),
-            htmlspecialchars($sourceString, ENT_COMPAT, $charset)
+            self::_htmlspecialchars($sourceString)
         );
 
         if (count($ignoreHtml) > 0) {
-            $result = strtr($result, array_combine($processedIgnoreHtml, $ignoreHtml));
+            $result = strtr(
+                $result,
+                array_combine($processedIgnoreHtml, $ignoreHtml)
+            );
         }
 
         return $result;
+    }
+
+    private static function _htmlspecialchars($str)
+    {
+        return preg_replace(
+            array_keys(self::$_specialchars),
+            array_values(self::$_specialchars),
+            $str
+        );
     }
 }
