@@ -51,6 +51,7 @@ echo BBCode::convert('[i]Hi&nbsp;there<br>!!![/i]', ['&nbsp;', '<br>']);
 * [url="http://www.domain.tld"]Another way to render a link[/url] (quotes inside url tag are not necessary)
 * [img]http://www.domain.tld/upload/image.png[/img]
 * [quote]A quotation[/quote]
+* [quote="Quote author"]A quotation[/quote] (quotes inside quote tag are not necessary)
 * [code]A program code sample[/code]
 * [size="12"]A text written using a 12px-sized font[/size] (quotes inside size tag are not necessary)
 * [size="10pt"]A text written using a 10pt-sized font[/size] (quotes inside size tag are not necessary)

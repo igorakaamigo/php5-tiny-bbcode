@@ -256,6 +256,9 @@ final class BBCodeTest extends PHPUnit_Framework_TestCase
         $this->_itShouldBehaveLikeAnAttributedWrapperTag('quote', '"Quote author"', function ($v) {
             return "<blockquote>$v</blockquote>";
         });
+        $this->_itShouldBehaveLikeAnAttributedWrapperTag('quote', 'Quote author', function ($v) {
+            return "<blockquote>$v</blockquote>";
+        });
     }
 
     public function testItShouldDealWithTagCode()
