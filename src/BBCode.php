@@ -48,7 +48,7 @@ class BBCode
         '#\[u\](.*?)\[/u\]#si'                                   => '<span style="text-decoration: underline;">\1</span>',
         '#\[s\](.*?)\[/s\]#si'                                   => '<del>\1</del>',
         '#\[url\](.*?)\[/url\]#si'                               => '<a href="\1">\1</a>',
-        '#\[url=(.*?)\](.*?)\[/url\]#si'                         => '<a href="\1">\2</a>',
+        '#\[url=(&quot;)?(.*?)(&quot;)?\](.*?)\[/url\]#si'       => '<a href="\2">\4</a>',
         '#\[img\](.*?)\[/img\]#si'                               => '<img src="\1" alt="" />',
         '#\[quote(=&quot;.*?&quot;)?\](.*?)\[/quote\]#si'        => '<blockquote>\2</blockquote>',
         '#\[code\](.*?)\[/code\]#si'                             => '<code style="white-space: pre;">\1</code>',

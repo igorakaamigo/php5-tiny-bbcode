@@ -229,6 +229,9 @@ final class BBCodeTest extends PHPUnit_Framework_TestCase
         $this->_itShouldBehaveLikeAnAttributedWrapperTag('url', 'http://www.google.com/', function ($v) {
             return "<a href=\"http://www.google.com/\">$v</a>";
         });
+        $this->_itShouldBehaveLikeAnAttributedWrapperTag('url', '"http://www.google.com/"', function ($v) {
+            return "<a href=\"http://www.google.com/\">$v</a>";
+        });
     }
 
     public function testItShouldDealWithTagImg()
