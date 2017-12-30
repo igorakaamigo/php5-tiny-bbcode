@@ -52,8 +52,8 @@ echo BBCode::convert('[i]Hi&nbsp;there<br>!!![/i]', ['&nbsp;', '<br>']);
 * [img]http://www.domain.tld/upload/image.png[/img]
 * [quote]A quotation[/quote]
 * [code]A program code sample[/code]
-* [size=12]A text written using a 12px-sized font[/size]
-* [size="10pt"]A text written using a 10pt-sized font[/size]
+* [size="12"]A text written using a 12px-sized font[/size] (quotes inside size tag are not necessary)
+* [size="10pt"]A text written using a 10pt-sized font[/size] (quotes inside size tag are not necessary)
 * [color="#33FF33"]A green text line[/color] (quotes inside color tag are not necessary)
 * [table], [tr], [td] – table-related tags
 * [ul], [ol], [li], [*], [list], [list=1|a|A|i|I], [list="1|a|A|i|I"] – list-related tags

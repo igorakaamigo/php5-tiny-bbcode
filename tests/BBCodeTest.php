@@ -267,10 +267,16 @@ final class BBCodeTest extends PHPUnit_Framework_TestCase
 
     public function testItShouldDealWithTagSize()
     {
+        $this->_itShouldBehaveLikeAnAttributedWrapperTag('size', '"20"', function ($v) {
+            return "<span style=\"font-size: 20px;\">$v</span>";
+        });
         $this->_itShouldBehaveLikeAnAttributedWrapperTag('size', '20', function ($v) {
             return "<span style=\"font-size: 20px;\">$v</span>";
         });
         $this->_itShouldBehaveLikeAnAttributedWrapperTag('size', '"20em"', function ($v) {
+            return "<span style=\"font-size: 20em;\">$v</span>";
+        });
+        $this->_itShouldBehaveLikeAnAttributedWrapperTag('size', '20em', function ($v) {
             return "<span style=\"font-size: 20em;\">$v</span>";
         });
     }

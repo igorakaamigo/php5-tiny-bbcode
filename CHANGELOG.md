@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Quotes are made unnecessary @ [color] tag
 - Quotes are made unnecessary @ [url] tag
+- Quotes are made unnecessary @ [size] tag
 - [li][/li] content is trimming now
 
 ### Removed
