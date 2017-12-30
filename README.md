@@ -58,6 +58,8 @@ echo BBCode::convert('[i]Hi&nbsp;there<br>!!![/i]', ['&nbsp;', '<br>']);
 * [table], [tr], [td] – table-related tags
 * [ul], [ol], [li], [*], [list], [list=1|a|A|i|I], [list="1|a|A|i|I"] – list-related tags
 
+[attachment] tag is not supported yet.
+
 ## Contributing
 
 OMG! Really? Thanks a lot!
