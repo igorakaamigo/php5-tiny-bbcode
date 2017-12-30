@@ -236,29 +236,9 @@ final class BBCodeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, BBCode::convert($source, $ignoreHtml));
     }
 
-    public function testItShouldDealWithStringCharset() {
-        $expected = iconv('utf-8', 'cp1251', 'A leading string  Абв A trailing string');
-        $source = iconv('utf-8', 'cp1251', 'A leading string  Абв A trailing string');
-        $this->assertEquals($expected, BBCode::convert($source, [], 'cp1251'), 'Windows-1251 charset tes failed');
-
-        $expected = '';
-        $source = iconv('utf-8', 'cp1251', 'A leading string  Абв A trailing string');
-        $this->assertEquals($expected, BBCode::convert($source, [], 'utf-8'), 'Wrong charset test failed');
-
-        $expected = 'A leading string  Юникод A trailing string';
-        $source = 'A leading string  Юникод A trailing string';
-        $this->assertEquals($expected, BBCode::convert($source, []), 'Default charset test failed');
-
-        $expected = iconv('utf-8', 'cp1251', 'A leading string  &Абв; A trailing string');
-        $source = iconv('utf-8', 'cp1251', 'A leading string  &Абв; A trailing string');
-        $this->assertEquals($expected, BBCode::convert($source, [iconv('utf-8', 'cp1251', '&Абв;')], 'cp1251'), 'ignoreHtml: Windows-1251 charset tes failed');
-
-        $expected = '';
-        $source = iconv('utf-8', 'cp1251', 'A leading string  &Абв; A trailing string');
-        $this->assertEquals($expected, BBCode::convert($source, [iconv('utf-8', 'cp1251', '&Абв;')], 'utf-8'), 'ignoreHtml: Wrong charset test failed');
-
-        $expected = 'A leading string  &Абв; A trailing string';
-        $source = 'A leading string  &Абв; A trailing string';
-        $this->assertEquals($expected, BBCode::convert($source, ['&Абв;']), 'ignoreHtml: Default charset test failed');
+    public function testItShouldNotBreakSingleByteCharsetString() {
+        $expected = iconv('utf-8', 'cp1251', 'Строка&amp;nbsp;со <спецсимволами>');
+        $source = iconv('utf-8', 'cp1251', 'Строка&nbsp;со <спецсимволами>');
+        $this->assertEquals($expected, BBCode::convert($source, [iconv('utf-8', 'cp1251', '<спецсимволами>')]));
     }
 }
