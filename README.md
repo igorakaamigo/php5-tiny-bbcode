@@ -54,8 +54,8 @@ echo BBCode::convert('[i]Hi&nbsp;there<br>!!![/i]', ['&nbsp;', '<br>']);
 * [size=12]A text written using a 12px-sized font[/size]
 * [size="10pt"]A text written using a 10pt-sized font[/size]
 * [color="#33FF33"]A green text line[/color]
-* [ul], [ol], [li] – list-related tags
 * [table], [tr], [td] – table-related tags
+* [ul], [ol], [li], [*], [list], [list=1|a|A|i|I], [list="1|a|A|i|I"] – list-related tags
 
 ## Contributing
 
