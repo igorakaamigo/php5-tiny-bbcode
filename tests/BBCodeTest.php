@@ -127,8 +127,24 @@ final class BBCodeTest extends PHPUnit_Framework_TestCase
     public function testItShouldDealWithTagLi()
     {
         $this->_itShouldBehaveLikeASimpleWrapperTag('li', function ($v) {
-            return "<li>$v</li>";
+            return '<li>' . preg_replace('#(^\s+)|(\s+$)#', '', $v) . '</li>';
         });
+    }
+
+    public function testItShouldDealWithAnAlternateListDefinition() {
+        $expected =  '<ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        </ul>';
+        $source = "
+        [list]
+        [*]Item 1
+        [*] Item 2 \t
+        [*]  Item 3  \t
+        [/list]
+        ";
+        $this->assertEquals($expected, BBCode::convert($source));
     }
 
     public function testItShouldDealWithTagTable()
