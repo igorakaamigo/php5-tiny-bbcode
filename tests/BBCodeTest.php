@@ -221,6 +221,10 @@ final class BBCodeTest extends PHPUnit_Framework_TestCase
         $this->_itShouldBehaveLikeAnAttributedWrapperTag('color', '"#AABBCC"', function ($v) {
             return "<span style=\"color: #AABBCC;\">$v</span>";
         });
+
+        $this->_itShouldBehaveLikeAnAttributedWrapperTag('color', '#AABBCC', function ($v) {
+            return "<span style=\"color: #AABBCC;\">$v</span>";
+        });
     }
 
     public function testItShouldDealWithIgnoreHtmlParam() {
