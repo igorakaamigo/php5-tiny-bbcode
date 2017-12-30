@@ -47,6 +47,7 @@ class BBCode
         '#\[i\](.*?)\[/i\]#si'                                   => '<em>\1</em>',
         '#\[u\](.*?)\[/u\]#si'                                   => '<span style="text-decoration: underline;">\1</span>',
         '#\[s\](.*?)\[/s\]#si'                                   => '<del>\1</del>',
+        '#\[email\](.*?)\[/email\]#si'                           => '<a href="mailto:\1">\1</a>',
         '#\[url\](.*?)\[/url\]#si'                               => '<a href="\1">\1</a>',
         '#\[url=(&quot;)?(.*?)(&quot;)?\](.*?)\[/url\]#si'       => '<a href="\2">\4</a>',
         '#\[img\](.*?)\[/img\]#si'                               => '<img src="\1" alt="" />',

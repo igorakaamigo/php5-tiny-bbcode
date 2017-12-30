@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Travis CI support file
 - HHVM support
 - New list synthax added ([list] / [*]) (according to documentation)
+- [email] tag added
 
 ### Changed
 - BBCode::convert() - added $ignoreHtml param with default value of []

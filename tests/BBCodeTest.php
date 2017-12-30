@@ -234,6 +234,13 @@ final class BBCodeTest extends PHPUnit_Framework_TestCase
         });
     }
 
+    public function testItShouldDealWithTagEmail()
+    {
+        $this->_itShouldBehaveLikeASimpleWrapperTag('email', function ($v) {
+            return "<a href=\"mailto:$v\">$v</a>";
+        });
+    }
+
     public function testItShouldDealWithTagImg()
     {
         $this->_itShouldBehaveLikeASimpleWrapperTag('img', function ($v) {

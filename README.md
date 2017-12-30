@@ -46,6 +46,7 @@ echo BBCode::convert('[i]Hi&nbsp;there<br>!!![/i]', ['&nbsp;', '<br>']);
 * [i]Italic string[/i]
 * [u]Underline string[/u]
 * [s]Strikethrough string[/s]
+* [email]xxx@yyy.com[/email]
 * [url]http://www.domain.tld[/url]
 * [url="http://www.domain.tld"]Another way to render a link[/url] (quotes inside url tag are not necessary)
 * [img]http://www.domain.tld/upload/image.png[/img]
