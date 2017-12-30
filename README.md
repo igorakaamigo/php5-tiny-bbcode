@@ -1,4 +1,4 @@
-# Tiny BBCode implementation for PHP 5.4+
+# Tiny BBCode implementation for PHP 5.4+ and HHVM
 
 This library includes a lightweight implementation of a BBCode subset to HTML translator.
 
