@@ -38,6 +38,12 @@ echo BBCode::convert('[i]Hi&nbsp;there![/i]');
 
 echo BBCode::convert('[i]Hi&nbsp;there<br>!!![/i]', ['&nbsp;', '<br>']);
 // Outputs: <em>Hi&nbsp;there<br>!!!</em>
+
+echo BBCode::convert('Magic links: email me at xxx@yyy.com');
+// Outputs: Magic links: email me at <a href="mailto:xxx@yyy.com">xxx@yyy.com</a>
+
+echo BBCode::convert('Magic links: http://www.domain.tld/path/to/resource');
+// Outputs: Magic links: <a href="http://www.domain.tld/path/to/resource">http://www.domain.tld/path/to/resource</a>
 ```
 
 ### Supported BBCodes

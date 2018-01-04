@@ -295,6 +295,24 @@ final class BBCodeTest extends PHPUnit_Framework_TestCase
         });
     }
 
+    public function testItShouldDealWithMagicLinks() {
+        $expected = "A leading string <a href=\"https://www.domain.tld/cgi-bin/script.cgi?a=1&amp;b=2#c=3\">https://www.domain.tld/cgi-bin/script.cgi?a=1&amp;b=2#c=3</a> a trailing string";
+        $source = "A leading string https://www.domain.tld/cgi-bin/script.cgi?a=1&b=2#c=3 a trailing string";
+        $this->assertEquals($expected, BBCode::convert($source));
+
+        $expected = "A leading string <a href=\"http://www.domain.tld/cgi-bin/script.cgi?a=1&amp;b=2#c=3\">http://www.domain.tld/cgi-bin/script.cgi?a=1&amp;b=2#c=3</a> a trailing string";
+        $source = "A leading string http://www.domain.tld/cgi-bin/script.cgi?a=1&b=2#c=3 a trailing string";
+        $this->assertEquals($expected, BBCode::convert($source));
+
+        $expected = "A leading string <a href=\"www.domain.tld/cgi-bin/script.cgi?a=1&amp;b=2#c=3\">www.domain.tld/cgi-bin/script.cgi?a=1&amp;b=2#c=3</a> a trailing string";
+        $source = "A leading string www.domain.tld/cgi-bin/script.cgi?a=1&b=2#c=3 a trailing string";
+        $this->assertEquals($expected, BBCode::convert($source));
+
+        $expected = "A leading string <a href=\"mailto:a-long.Email@sub-domain.domain.tld\">a-long.Email@sub-domain.domain.tld</a> a trailing string";
+        $source = "A leading string a-long.Email@sub-domain.domain.tld a trailing string";
+        $this->assertEquals($expected, BBCode::convert($source));
+    }
+
     public function testItShouldDealWithIgnoreHtmlParam() {
         $expected = "A leading string &nbsp;&quot;<br><br/><br /> A trailing string";
         $source = 'A leading string &nbsp;&quot;<br><br/><br /> A trailing string';
