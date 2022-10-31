@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - Added /.idea to .gitignore
+- Migrated from travisci
+- Minor README fixes
 
 ## [1.1.0] - 2017-12-31
 ### Added
